@@ -9,6 +9,7 @@ function App() {
 	const handleClick = () => {
 		console.log("add note")
 	}
+
 	useEffect(() => {
 		const updateDraggable = () => {
 			setIsDraggable(window.innerWidth > 430)
