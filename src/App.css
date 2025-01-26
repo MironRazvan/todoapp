@@ -253,6 +253,42 @@ button.delete__note {
 	background-color: rgba(255, 0, 0, 0.6);
 }
 
+.modal__overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(var(--bg-color-dark), 0.5);
+}
+
+.modal {
+	position: fixed;
+	right: 3rem;
+	bottom: 3rem;
+	transform: translate(-25%, -25%);
+	background-color: rgba(var(--primary-color), 1);
+	color: rgb(var(--text-color-light));
+	border-radius: 0.5rem;
+	padding: 1rem;
+	width: 15rem;
+	height: 15rem;
+}
+
+.input__title,
+.input__listitem {
+	width: 100%;
+	border-radius: 0.5rem;
+	padding: 0.5rem 1rem;
+	font: var(--font-regular);
+}
+
+.input__title {
+	font-size: 1.2rem;
+	font-weight: bold;
+	text-align: center;
+}
+
 @media (width < 426px) {
 	header.header__container {
 		position: absolute;

@@ -1,14 +1,14 @@
 import { create } from "zustand"
 
-type Note = {
+export type TNote = {
 	id: string
 	title?: string
 	content: string[]
 }
 
 type NotesStore = {
-	notes: Note[]
-	addNote: (note: Note) => void
+	notes: TNote[]
+	addNote: (note: TNote) => void
 	deleteNote: (id: string) => void
 }
 
