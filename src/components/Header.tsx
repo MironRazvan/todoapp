@@ -1,20 +1,21 @@
-import { useState } from "react"
 import { Lightbulb, LightbulbOff } from "lucide-react"
+import useThemeStore from "../utils/themeStore"
+import { useEffect } from "react"
 
 const Header = () => {
-	const [isDarkMode, setIsDarkMode] = useState(false)
+	const { isDarkTheme, toggleTheme } = useThemeStore()
+
+	useEffect(() => {
+		const rootElement = document.documentElement
+		if (isDarkTheme) {
+			rootElement.classList.remove("dark-theme")
+		} else {
+			rootElement.classList.add("dark-theme")
+		}
+	}, [isDarkTheme])
 
 	const handleChange = () => {
-		const body = document.documentElement
-
-		if (isDarkMode) {
-			body.classList.remove("dark-theme")
-			setIsDarkMode(false)
-		} else {
-			body.classList.add("dark-theme")
-			setIsDarkMode(true)
-		}
-		// body.classList.toggle("dark-theme")
+		console.log("login")
 	}
 
 	return (
@@ -24,11 +25,9 @@ const Header = () => {
 				<button className="login__button" onClick={handleChange}>
 					Login
 				</button>
-				<button
-					className="theme__toggle__button"
-					onClick={handleChange}
-				>
-					{isDarkMode ? <Lightbulb /> : <LightbulbOff />}
+				<button className="theme__toggle__button" onClick={toggleTheme}>
+					{/* {isDarkMode ? <Lightbulb /> : <LightbulbOff />} */}
+					{isDarkTheme ? <Lightbulb /> : <LightbulbOff />}
 				</button>
 			</div>
 		</header>
