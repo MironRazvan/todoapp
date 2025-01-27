@@ -27,7 +27,8 @@
 	height: 100%;
 	overflow-y: auto;
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+	/* grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); */
+	grid-template-columns: repeat(4, auto);
 	justify-items: center;
 	padding: 1rem;
 }
@@ -178,8 +179,8 @@ html.dark-theme .note__container.expanded:after {
 }
 
 .note__container.expanded {
-	width: 15rem;
-	height: 20rem;
+	width: 20rem;
+	height: 25rem;
 }
 
 .note__container.expanded:after {
@@ -298,10 +299,24 @@ button.delete__note {
 	background-color: rgba(255, 0, 0, 0.6);
 }
 
+button.note__text__deletebtn {
+	border: none;
+	cursor: pointer;
+	background-color: transparent;
+}
+
+button.note__text__deletebtn > svg {
+	stroke: rgb(var(--text-color-light));
+}
+
+html.dark-theme button.note__text__deletebtn > svg {
+	stroke: rgb(var(--text-color-dark));
+}
+
 .note__items__counter {
 	font-family: var(--font-regular);
 	position: absolute;
-	top: 1.5rem;
+	top: 1.3rem;
 	right: 1rem;
 }
 

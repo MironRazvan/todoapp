@@ -14,8 +14,10 @@ type NotesStore = {
 	notes: TNote[]
 	addNote: (note: TNote) => void
 	checkNoteItem: (noteId: string, itemId: string) => void
+	checkAllNotes: (noteId: string) => void
 	getNotesCount: (noteId: string) => number
 	getCheckedNotesCount: (noteId: string) => number
+	updateNoteItem: (noteId: string, itemId: string, newValue: string) => void
 	deleteNoteItem: (noteId: string, itemId: string) => void
 	deleteNote: (id: string) => void
 }
@@ -44,6 +46,46 @@ const useNotesStore = create<NotesStore>((set, get) => ({
 					item.id === itemId
 						? { ...item, isChecked: !item.isChecked }
 						: item
+				),
+			}
+			const updatedNotes = state.notes
+				.slice(0, noteIndex)
+				.concat(updatedNote)
+				.concat(state.notes.slice(noteIndex + 1))
+			localStorage.setItem("todoapp-notes", JSON.stringify(updatedNotes))
+			return { notes: updatedNotes }
+		}),
+	checkAllNotes: (noteId) =>
+		set((state) => {
+			const noteIndex = state.notes.findIndex(
+				(item) => item.id === noteId
+			)
+			const note = state.notes[noteIndex]
+
+			const updatedNote = {
+				...note,
+				content: note.content.map((item) => ({
+					...item,
+					isChecked: true,
+				})),
+			}
+			const updatedNotes = state.notes
+				.slice(0, noteIndex)
+				.concat(updatedNote)
+				.concat(state.notes.slice(noteIndex + 1))
+			localStorage.setItem("todoapp-notes", JSON.stringify(updatedNotes))
+			return { notes: updatedNotes }
+		}),
+	updateNoteItem: (noteId, itemId, newValue) =>
+		set((state) => {
+			const noteIndex = state.notes.findIndex(
+				(note) => note.id === noteId
+			)
+			const note = state.notes[noteIndex]
+			const updatedNote = {
+				...note,
+				content: note.content.map((item) =>
+					item.id === itemId ? { ...item, text: newValue } : item
 				),
 			}
 			const updatedNotes = state.notes
