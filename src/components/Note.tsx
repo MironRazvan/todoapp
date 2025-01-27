@@ -44,12 +44,16 @@ const Note = ({ note }: { note: TNote }) => {
 	}
 
 	const handleAddNewEntry = () => {
+		const inputElement = document.getElementById(
+			"note__add__entry__input"
+		) as HTMLInputElement
 		if (newEntry !== null) {
 			addNoteEntry(note.id, {
 				id: nanoid(),
 				text: newEntry,
 				isChecked: false,
 			})
+			inputElement.value = ""
 		}
 	}
 
@@ -141,6 +145,7 @@ const Note = ({ note }: { note: TNote }) => {
 					<div className="note__add__entry">
 						<input
 							type="text"
+							id="note__add__entry__input"
 							onChange={(e) => setNewEntry(e.target.value)}
 						/>
 						<button onClick={() => handleAddNewEntry()}>

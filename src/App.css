@@ -490,7 +490,7 @@ html.dark-theme button.note__text__deletebtn > svg {
 	stroke-width: 0.2rem;
 }
 
-@media (width < 426px) {
+@media (width < 769px) {
 	header.header__container {
 		position: absolute;
 		bottom: 0;
