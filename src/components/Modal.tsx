@@ -1,7 +1,7 @@
 import { useState } from "react"
 import useNotesStore, { TNote } from "../utils/notesStore"
 import { nanoid } from "nanoid"
-import { NotebookPen, X } from "lucide-react"
+import { Delete, NotebookPen, X } from "lucide-react"
 
 type ModalProps = {
 	onClose: () => void
@@ -50,6 +50,13 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
 		}
 	}
 
+	const handleDeleteEntry = (itemId: string) => {
+		setNewNote((prevNote) => ({
+			...prevNote,
+			content: prevNote.content.filter((item) => item.id !== itemId),
+		}))
+	}
+
 	return (
 		<div className="modal__overlay" onClick={(e) => handleOverlayClick(e)}>
 			<div className="modal">
@@ -85,11 +92,19 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
 							Add
 						</button>
 					</div>
-					<div className="modal__listitems">
+					<ul className="modal__listitems">
 						{newNote.content.map((item) => (
-							<p key={item.id}>{item.text}</p>
+							<li key={item.id}>
+								<p>{item.text}</p>
+								<button
+									className="delete__entry"
+									onClick={() => handleDeleteEntry(item.id)}
+								>
+									<Delete />
+								</button>
+							</li>
 						))}
-					</div>
+					</ul>
 				</div>
 				<div className="modal__button__container">
 					<button

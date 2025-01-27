@@ -1,12 +1,16 @@
 import { toCamelCase } from "../utils/utils.tsx"
-import { ChevronsDown, Delete } from "lucide-react"
+import { ChevronsDown, Delete, Plus } from "lucide-react"
 import { useState } from "react"
 import useNotesStore, { TNote } from "../utils/notesStore.tsx"
+import { nanoid } from "nanoid"
 
 const Note = ({ note }: { note: TNote }) => {
 	const [isExpanded, setIsExpanded] = useState(false)
 	const [editingId, setEditingId] = useState<string | null>(null)
+	const [newEntry, setNewEntry] = useState<string | null>(null)
+
 	const {
+		addNoteEntry,
 		deleteNote,
 		deleteNoteItem,
 		checkNoteItem,
@@ -39,6 +43,16 @@ const Note = ({ note }: { note: TNote }) => {
 		setEditingId(null)
 	}
 
+	const handleAddNewEntry = () => {
+		if (newEntry !== null) {
+			addNoteEntry(note.id, {
+				id: nanoid(),
+				text: newEntry,
+				isChecked: false,
+			})
+		}
+	}
+
 	return (
 		<div className="note__container">
 			<div className="note__header">
@@ -57,7 +71,7 @@ const Note = ({ note }: { note: TNote }) => {
 				className="note__content"
 				style={
 					isExpanded
-						? { marginBottom: "8rem" }
+						? { marginBottom: "10rem" }
 						: { marginBottom: "3rem" }
 				}
 			>
@@ -66,12 +80,13 @@ const Note = ({ note }: { note: TNote }) => {
 						{isExpanded && (
 							<input
 								type="checkbox"
+								placeholder="Add another item..."
 								checked={item.isChecked}
 								className="note__text__checkbox"
 								onChange={() => checkNoteItem(note.id, item.id)}
 							/>
 						)}
-						{editingId === item.id ? (
+						{editingId === item.id && isExpanded ? (
 							<input
 								type="text"
 								className="input__listitem"
@@ -123,6 +138,15 @@ const Note = ({ note }: { note: TNote }) => {
 			</ul>
 			{isExpanded === true && (
 				<div className="note__content__options">
+					<div className="note__add__entry">
+						<input
+							type="text"
+							onChange={(e) => setNewEntry(e.target.value)}
+						/>
+						<button onClick={() => handleAddNewEntry()}>
+							<Plus />
+						</button>
+					</div>
 					<button
 						className="mark__completed"
 						onClick={() => checkAllNotes(note.id)}

@@ -1,18 +1,21 @@
 import { create } from "zustand"
 
+type Entry = {
+	id: string
+	isChecked: boolean
+	text: string
+}
+
 export type TNote = {
 	id: string
 	title?: string
-	content: {
-		id: string
-		isChecked: boolean
-		text: string
-	}[]
+	content: Entry[]
 }
 
 type NotesStore = {
 	notes: TNote[]
 	addNote: (note: TNote) => void
+	addNoteEntry: (noteId: string, value: Entry) => void
 	checkNoteItem: (noteId: string, itemId: string) => void
 	checkAllNotes: (noteId: string) => void
 	getNotesCount: (noteId: string) => number
@@ -34,6 +37,23 @@ const useNotesStore = create<NotesStore>((set, get) => ({
 				JSON.stringify([...state.notes, note])
 			)
 			return { notes: [...state.notes, note] }
+		}),
+	addNoteEntry: (noteId, value) =>
+		set((state) => {
+			const noteIndex = state.notes.findIndex(
+				(note) => note.id === noteId
+			)
+			const note = state.notes[noteIndex]
+			const updatedNote = {
+				...note,
+				content: [...note.content, value],
+			}
+			const updatedNotes = state.notes
+				.slice(0, noteIndex)
+				.concat(updatedNote)
+				.concat(state.notes.slice(noteIndex + 1))
+			localStorage.setItem("todoapp-notes", JSON.stringify(updatedNotes))
+			return { notes: updatedNotes }
 		}),
 	checkNoteItem: (noteId, itemId) =>
 		set((state) => {

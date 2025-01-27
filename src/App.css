@@ -230,6 +230,30 @@ html.dark-theme .note__container.expanded:after {
 	overflow-y: scroll;
 }
 
+.note__add__entry {
+	display: grid;
+	grid-template-columns: 1fr auto;
+}
+.note__add__entry > input {
+	border-top-left-radius: 0.5rem;
+	border-bottom-left-radius: 0.5rem;
+	font-family: var(--font-fancy);
+	font-weight: bold;
+	padding: 0 1rem;
+	border: none;
+}
+.note__add__entry > button {
+	border: none;
+	border-top-right-radius: 0.5rem;
+	border-bottom-right-radius: 0.5rem;
+	padding: 0 0.5rem;
+	background-color: rgba(var(--primary-color), 0.2);
+
+	svg {
+		stroke: rgba(var(--bg-color-light), 1);
+	}
+}
+
 ::-webkit-scrollbar {
 	/* display: none; */
 	width: 0.2rem;
@@ -417,6 +441,23 @@ html.dark-theme button.note__text__deletebtn > svg {
 	justify-content: space-between;
 	align-items: center;
 	padding: 0 1rem;
+}
+
+.modal__listitems {
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+.modal__listitems > li {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	button {
+		border: none;
+		background-color: transparent;
+	}
 }
 
 .add__note__modal__button {
