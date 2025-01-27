@@ -14,11 +14,13 @@ type NotesStore = {
 	notes: TNote[]
 	addNote: (note: TNote) => void
 	checkNoteItem: (noteId: string, itemId: string) => void
+	getNotesCount: (noteId: string) => number
+	getCheckedNotesCount: (noteId: string) => number
 	deleteNoteItem: (noteId: string, itemId: string) => void
 	deleteNote: (id: string) => void
 }
 
-const useNotesStore = create<NotesStore>((set) => ({
+const useNotesStore = create<NotesStore>((set, get) => ({
 	notes: localStorage.getItem("todoapp-notes")
 		? JSON.parse(localStorage.getItem("todoapp-notes")!)
 		: [],
@@ -51,6 +53,15 @@ const useNotesStore = create<NotesStore>((set) => ({
 			localStorage.setItem("todoapp-notes", JSON.stringify(updatedNotes))
 			return { notes: updatedNotes }
 		}),
+	getNotesCount: (noteId) => {
+		const currentNote = get().notes.filter((item) => item.id === noteId)
+		return currentNote[0].content.length
+	},
+	getCheckedNotesCount: (noteId) => {
+		const currentNote = get().notes.filter((item) => item.id === noteId)
+		return currentNote[0].content.filter((item) => item.isChecked === true)
+			.length
+	},
 	deleteNoteItem: (noteId, itemId) =>
 		set((state) => {
 			const noteIndex = state.notes.findIndex(

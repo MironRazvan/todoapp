@@ -298,6 +298,13 @@ button.delete__note {
 	background-color: rgba(255, 0, 0, 0.6);
 }
 
+.note__items__counter {
+	font-family: var(--font-regular);
+	position: absolute;
+	top: 1.5rem;
+	right: 1rem;
+}
+
 .modal__overlay {
 	position: fixed;
 	top: 0;

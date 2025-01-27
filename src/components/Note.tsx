@@ -5,7 +5,13 @@ import useNotesStore, { TNote } from "../utils/notesStore.tsx"
 
 const Note = ({ note }: { note: TNote }) => {
 	const [isExpanded, setIsExpanded] = useState(false)
-	const { deleteNote, deleteNoteItem, checkNoteItem } = useNotesStore()
+	const {
+		deleteNote,
+		deleteNoteItem,
+		checkNoteItem,
+		getNotesCount,
+		getCheckedNotesCount,
+	} = useNotesStore()
 
 	const handleExpandNote = (
 		e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -53,12 +59,19 @@ const Note = ({ note }: { note: TNote }) => {
 							{toCamelCase(item.text)}
 						</p>
 						{isExpanded && (
-							<button
-								className="note__text__deletebtn"
-								onClick={() => deleteNoteItem(note.id, item.id)}
-							>
-								X
-							</button>
+							<div className="note__text__btn">
+								<button className="note__text__edit">
+									asd
+								</button>
+								<button
+									className="note__text__deletebtn"
+									onClick={() =>
+										deleteNoteItem(note.id, item.id)
+									}
+								>
+									X
+								</button>
+							</div>
 						)}
 					</li>
 				))}
@@ -82,6 +95,13 @@ const Note = ({ note }: { note: TNote }) => {
 			>
 				<ChevronsDown />
 			</button>
+			{isExpanded && (
+				<div className="note__items__counter">
+					<p>
+						{getCheckedNotesCount(note.id)}/{getNotesCount(note.id)}
+					</p>
+				</div>
+			)}
 		</div>
 	)
 }
