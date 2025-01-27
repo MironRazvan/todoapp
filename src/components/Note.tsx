@@ -47,6 +47,7 @@ const Note = ({ note }: { note: TNote }) => {
 		const inputElement = document.getElementById(
 			"note__add__entry__input"
 		) as HTMLInputElement
+		inputElement.blur()
 		if (newEntry !== null) {
 			addNoteEntry(note.id, {
 				id: nanoid(),

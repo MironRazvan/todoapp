@@ -46,7 +46,7 @@ const useNotesStore = create<NotesStore>((set, get) => ({
 			const note = state.notes[noteIndex]
 			const updatedNote = {
 				...note,
-				content: [...note.content, value],
+				content: [value, ...note.content],
 			}
 			const updatedNotes = state.notes
 				.slice(0, noteIndex)
