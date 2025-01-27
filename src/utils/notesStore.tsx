@@ -20,6 +20,7 @@ type NotesStore = {
 	updateNoteItem: (noteId: string, itemId: string, newValue: string) => void
 	deleteNoteItem: (noteId: string, itemId: string) => void
 	deleteNote: (id: string) => void
+	findNote: (text: string) => TNote
 }
 
 const useNotesStore = create<NotesStore>((set, get) => ({
@@ -132,6 +133,10 @@ const useNotesStore = create<NotesStore>((set, get) => ({
 				notes: state.notes.filter((note) => note.id !== id),
 			}
 		}),
+	findNote: (textValue) => {
+		const note = get().notes.filter((item) => item.title === textValue)
+		return note[0]
+	},
 }))
 
 export default useNotesStore

@@ -14,19 +14,11 @@ const Header = () => {
 		}
 	}, [isDarkTheme])
 
-	const handleChange = () => {
-		console.log("login")
-	}
-
 	return (
 		<header className="header__container">
 			<h1>Kind Reminder</h1>
 			<div className="header__btn__container">
-				<button className="login__button" onClick={handleChange}>
-					Login
-				</button>
 				<button className="theme__toggle__button" onClick={toggleTheme}>
-					{/* {isDarkMode ? <Lightbulb /> : <LightbulbOff />} */}
 					{isDarkTheme ? <Lightbulb /> : <LightbulbOff />}
 				</button>
 			</div>

@@ -27,9 +27,10 @@
 	height: 100%;
 	overflow-y: auto;
 	display: grid;
-	/* grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); */
 	grid-template-columns: repeat(4, auto);
 	justify-items: center;
+	align-items: center;
+	gap: 2rem;
 	padding: 1rem;
 }
 
@@ -98,9 +99,9 @@ button.login__button:hover {
 }
 
 header.header__container {
-	position: sticky;
+	/* position: sticky;
 	top: 0;
-	left: 0;
+	left: 0; */
 	width: 100%;
 	padding: 1rem 0.5rem;
 	display: flex;
@@ -109,6 +110,28 @@ header.header__container {
 	background-color: rgba(var(--header-color), 0.9);
 
 	transition: background-color 0.3s ease-in-out;
+}
+
+.header__search__form {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	align-items: center;
+	gap: 1rem;
+	/* z-index: -5; */
+}
+
+.header__search__form > div {
+	z-index: 10;
+	width: 0;
+	overflow: hidden;
+	white-space: nowrap;
+	pointer-events: none;
+
+	transition: width 0.3s ease-in-out;
+}
+
+.header__search__form > div.show {
+	width: 15rem;
 }
 
 .add__note__button {
@@ -377,6 +400,7 @@ html.dark-theme button.note__text__deletebtn > svg {
 	grid-template-columns: 1fr auto;
 }
 .modal__input__additem__container > button {
+	cursor: pointer;
 	border-top-right-radius: 0.5rem;
 	border-bottom-right-radius: 0.5rem;
 	border: none;
@@ -396,6 +420,7 @@ html.dark-theme button.note__text__deletebtn > svg {
 }
 
 .add__note__modal__button {
+	cursor: pointer;
 	display: flex;
 	gap: 0.2rem;
 	align-items: center;
@@ -409,10 +434,11 @@ html.dark-theme button.note__text__deletebtn > svg {
 }
 
 .close__modal__button {
+	cursor: pointer;
 	background-color: transparent;
-	border: 0.2rem solid red;
+	border: 0.3rem solid red;
 	border-radius: 50%;
-	padding: 0.2rem;
+	padding: 0.1rem;
 	display: flex;
 	align-items: center;
 }
@@ -420,6 +446,7 @@ html.dark-theme button.note__text__deletebtn > svg {
 	width: 2rem;
 	height: 2rem;
 	stroke: red;
+	stroke-width: 0.2rem;
 }
 
 @media (width < 426px) {
@@ -433,6 +460,11 @@ html.dark-theme button.note__text__deletebtn > svg {
 
 	header > h1 {
 		display: none;
+	}
+
+	.header__btn__container {
+		justify-content: space-between;
+		width: 100%;
 	}
 
 	.add__note__button {

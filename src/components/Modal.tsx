@@ -44,8 +44,14 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
 		}
 	}
 
+	const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+		if (e.target === e.currentTarget) {
+			onClose()
+		}
+	}
+
 	return (
-		<div className="modal__overlay">
+		<div className="modal__overlay" onClick={(e) => handleOverlayClick(e)}>
 			<div className="modal">
 				<div className="modal__input__container">
 					<input
@@ -66,6 +72,11 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
 							id="input__listitem"
 							placeholder="CARROTS"
 							onChange={(e) => setListItem(e.target.value)}
+							onKeyDown={(e) => {
+								if (e.key === "Enter") {
+									handleAddNewItem()
+								}
+							}}
 						/>
 						<button
 							className="add__item"

@@ -41,20 +41,18 @@ const Note = ({ note }: { note: TNote }) => {
 
 	return (
 		<div className="note__container">
-			{note.title && (
-				<div className="note__header">
-					<h3
-						className="note__title"
-						style={
-							isNoteCompleted && !isExpanded
-								? { textDecoration: "line-through" }
-								: undefined
-						}
-					>
-						{note.title}
-					</h3>
-				</div>
-			)}
+			<div className="note__header">
+				<h3
+					className="note__title"
+					style={
+						isNoteCompleted && !isExpanded
+							? { textDecoration: "line-through" }
+							: undefined
+					}
+				>
+					{note.title && note.title}
+				</h3>
+			</div>
 			<ul
 				className="note__content"
 				style={
