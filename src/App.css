@@ -132,6 +132,8 @@ header.header__container {
 
 .header__search__form > div.show {
 	width: 15rem;
+	overflow: auto;
+	pointer-events: auto;
 }
 
 .add__note__button {

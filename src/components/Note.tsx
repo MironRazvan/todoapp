@@ -1,11 +1,16 @@
 import { toCamelCase } from "../utils/utils.tsx"
 import { ChevronsDown, Delete, Plus } from "lucide-react"
-import { useState } from "react"
 import useNotesStore, { TNote } from "../utils/notesStore.tsx"
 import { nanoid } from "nanoid"
+import { useState } from "react"
 
-const Note = ({ note }: { note: TNote }) => {
-	const [isExpanded, setIsExpanded] = useState(false)
+interface NoteProps {
+	note: TNote
+	isExpanded: boolean
+	onToggleExpand: () => void
+}
+
+const Note: React.FC<NoteProps> = ({ note, isExpanded, onToggleExpand }) => {
 	const [editingId, setEditingId] = useState<string | null>(null)
 	const [newEntry, setNewEntry] = useState<string | null>(null)
 
@@ -23,26 +28,6 @@ const Note = ({ note }: { note: TNote }) => {
 	const isNoteCompleted =
 		getCheckedNotesCount(note.id) === getNotesCount(note.id)
 
-	const handleExpandNote = (
-		e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-	) => {
-		e.stopPropagation()
-		const currentContainer = e.currentTarget.closest(
-			".note__container"
-		) as HTMLDivElement
-		currentContainer.classList.toggle("expanded")
-		setIsExpanded((prev) => !prev)
-	}
-
-	const handleNoteItemEditing = (
-		noteId: string,
-		itemId: string,
-		newText: string
-	) => {
-		updateNoteItem(noteId, itemId, newText)
-		setEditingId(null)
-	}
-
 	const handleAddNewEntry = () => {
 		const inputElement = document.getElementById(
 			"note__add__entry__input"
@@ -59,7 +44,7 @@ const Note = ({ note }: { note: TNote }) => {
 	}
 
 	return (
-		<div className="note__container">
+		<div className={`note__container ${isExpanded ? "expanded" : ""}`}>
 			<div className="note__header">
 				<h3
 					className="note__title"
@@ -85,7 +70,6 @@ const Note = ({ note }: { note: TNote }) => {
 						{isExpanded && (
 							<input
 								type="checkbox"
-								placeholder="Add another item..."
 								checked={item.isChecked}
 								className="note__text__checkbox"
 								onChange={() => checkNoteItem(note.id, item.id)}
@@ -97,7 +81,7 @@ const Note = ({ note }: { note: TNote }) => {
 								className="input__listitem"
 								defaultValue={item.text}
 								onBlur={(e) =>
-									handleNoteItemEditing(
+									updateNoteItem(
 										note.id,
 										item.id,
 										e.target.value
@@ -105,7 +89,7 @@ const Note = ({ note }: { note: TNote }) => {
 								}
 								onKeyDown={(e) => {
 									if (e.key === "Enter") {
-										handleNoteItemEditing(
+										updateNoteItem(
 											note.id,
 											item.id,
 											(e.target as HTMLInputElement).value
@@ -141,7 +125,7 @@ const Note = ({ note }: { note: TNote }) => {
 					</li>
 				))}
 			</ul>
-			{isExpanded === true && (
+			{isExpanded && (
 				<div className="note__content__options">
 					<div className="note__add__entry">
 						<input
@@ -154,7 +138,7 @@ const Note = ({ note }: { note: TNote }) => {
 								}
 							}}
 						/>
-						<button onClick={() => handleAddNewEntry()}>
+						<button onClick={handleAddNewEntry}>
 							<Plus />
 						</button>
 					</div>
@@ -172,10 +156,7 @@ const Note = ({ note }: { note: TNote }) => {
 					</button>
 				</div>
 			)}
-			<button
-				className="expand__note__button"
-				onClick={(e) => handleExpandNote(e)}
-			>
+			<button className="expand__note__button" onClick={onToggleExpand}>
 				<ChevronsDown />
 			</button>
 			{isExpanded && (
