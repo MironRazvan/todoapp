@@ -147,6 +147,11 @@ const Note = ({ note }: { note: TNote }) => {
 							type="text"
 							id="note__add__entry__input"
 							onChange={(e) => setNewEntry(e.target.value)}
+							onKeyDown={(e) => {
+								if (e.key === "Enter") {
+									handleAddNewEntry()
+								}
+							}}
 						/>
 						<button onClick={() => handleAddNewEntry()}>
 							<Plus />
