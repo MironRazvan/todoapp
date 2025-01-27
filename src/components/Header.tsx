@@ -8,9 +8,9 @@ const Header = () => {
 	useEffect(() => {
 		const rootElement = document.documentElement
 		if (isDarkTheme) {
-			rootElement.classList.remove("dark-theme")
-		} else {
 			rootElement.classList.add("dark-theme")
+		} else {
+			rootElement.classList.remove("dark-theme")
 		}
 	}, [isDarkTheme])
 

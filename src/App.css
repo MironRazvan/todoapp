@@ -191,12 +191,57 @@ html.dark-theme .note__container.expanded:after {
 	font-weight: bold;
 	padding: 1rem;
 	letter-spacing: 0.2rem;
+	justify-self: center;
 }
 
 .note__content {
 	align-self: flex-start;
 	padding: 0 1rem;
 	font-size: 0.8rem;
+	list-style: none;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+	/* display: none; */
+	width: 0.2rem;
+}
+::-webkit-scrollbar-track {
+	background: #f0f0f0; /* Light background for the track */
+	border-radius: 10px; /* Rounded edges for the track */
+}
+
+::-webkit-scrollbar-thumb {
+	background: rgba(
+		var(--accent-color),
+		1
+	); /* Darker color for the scroll thumb */
+	border-radius: 0.5rem; /* Rounded edges for the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: rgba(var(--secondary-color), 1); /* Change color when hovered */
+}
+
+::-webkit-scrollbar-corner {
+	background: rgba(var(--text-color), 0.1); /* Match the track color */
+}
+
+.note__text {
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.note__text > .note__text__checkbox {
+	width: 1.5rem;
+	aspect-ratio: 1/1;
+	padding: 0.5rem;
 }
 
 .expand__note__button {
@@ -260,33 +305,99 @@ button.delete__note {
 	width: 100%;
 	height: 100%;
 	background-color: rgba(var(--bg-color-dark), 0.5);
+	z-index: 1;
 }
 
 .modal {
+	z-index: 2;
 	position: fixed;
 	right: 3rem;
 	bottom: 3rem;
-	transform: translate(-25%, -25%);
+	width: 20rem;
+	height: 30rem;
+	transform: translate(-15%, -15%);
 	background-color: rgba(var(--primary-color), 1);
 	color: rgb(var(--text-color-light));
 	border-radius: 0.5rem;
-	padding: 1rem;
-	width: 15rem;
-	height: 15rem;
+	padding: 2rem 1rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
 
 .input__title,
 .input__listitem {
 	width: 100%;
-	border-radius: 0.5rem;
 	padding: 0.5rem 1rem;
-	font: var(--font-regular);
+	font-family: var(--font-fancy);
+	font-weight: bold;
 }
 
 .input__title {
 	font-size: 1.2rem;
-	font-weight: bold;
 	text-align: center;
+	border-radius: 0.5rem;
+}
+
+.input__listitem {
+	border-top-left-radius: 0.5rem;
+	border-bottom-left-radius: 0.5rem;
+}
+
+.modal__input__container {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.modal__input__additem__container {
+	display: grid;
+	grid-template-columns: 1fr auto;
+}
+.modal__input__additem__container > button {
+	border-top-right-radius: 0.5rem;
+	border-bottom-right-radius: 0.5rem;
+	border: none;
+	width: fit-content;
+	padding: 0 1rem;
+	font-family: var(--font-fancy);
+	font-weight: bold;
+	background-color: rgb(var(--accent-color));
+	color: rgb(var(--text-color));
+}
+
+.modal__button__container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 1rem;
+}
+
+.add__note__modal__button {
+	display: flex;
+	gap: 0.2rem;
+	align-items: center;
+	padding: 0.5rem;
+	font-family: var(--font-fancy);
+	font-weight: bold;
+	border-radius: 0.5rem;
+	border: none;
+	background-color: rgb(var(--accent-color));
+	color: rgb(var(--text-color));
+}
+
+.close__modal__button {
+	background-color: transparent;
+	border: 0.2rem solid red;
+	border-radius: 50%;
+	padding: 0.2rem;
+	display: flex;
+	align-items: center;
+}
+.close__modal__button > svg {
+	width: 2rem;
+	height: 2rem;
+	stroke: red;
 }
 
 @media (width < 426px) {
@@ -340,5 +451,13 @@ button.delete__note {
 		width: 100%;
 		height: 20rem;
 		background-color: rgba(var(--secondary-color), 1);
+	}
+
+	.modal {
+		width: 90%;
+		height: 50%;
+		bottom: 0;
+		right: 0;
+		transform: translate(-5%, -25%);
 	}
 }
