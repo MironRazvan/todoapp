@@ -27,7 +27,9 @@
 	height: 100%;
 	overflow-y: auto;
 	display: grid;
-	grid-template-columns: repeat(4, auto);
+	/* grid-template-columns: repeat(auto-fit, 1fr); */
+	grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+	flex-wrap: wrap;
 	justify-items: center;
 	align-items: center;
 	gap: 2rem;
@@ -99,9 +101,6 @@ button.login__button:hover {
 }
 
 header.header__container {
-	/* position: sticky;
-	top: 0;
-	left: 0; */
 	width: 100%;
 	padding: 1rem 2rem;
 	display: flex;
@@ -180,7 +179,10 @@ header.header__container {
 }
 
 .note__container {
-	width: 10rem;
+	/* width: 10rem; */
+	min-width: 15rem;
+	max-width: 20rem;
+	width: max-content;
 	height: 12rem;
 	background-color: rgba(var(--primary-color), 1);
 	font-family: var(--font-fancy);
@@ -198,7 +200,7 @@ header.header__container {
 .note__container:after {
 	position: absolute;
 	content: "";
-	bottom: 1.5rem;
+	bottom: 2rem;
 	left: auto;
 	width: 80%;
 	margin: 0 10%;
@@ -226,7 +228,8 @@ html.dark-theme .note__container.expanded:after {
 }
 
 .note__container.expanded {
-	width: 20rem;
+	min-width: 20rem;
+	width: max-content;
 	height: 25rem;
 }
 
@@ -237,11 +240,15 @@ html.dark-theme .note__container.expanded:after {
 .note__title {
 	font-size: 1.5rem;
 	font-weight: bold;
-	padding: 1rem;
+	padding: 1rem 3rem;
 	letter-spacing: 0.2rem;
-	/* justify-self: center; */
+	justify-self: center;
 	width: 100%;
+	/* width: max-content; */
 	text-align: center;
+	text-wrap: wrap;
+	white-space: wrap;
+	word-break: break-all;
 }
 
 .note__content {
@@ -253,7 +260,7 @@ html.dark-theme .note__container.expanded:after {
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;
-	overflow-y: scroll;
+	overflow-y: auto;
 }
 
 .note__add__entry {
@@ -335,7 +342,7 @@ html.dark-theme .note__container.expanded:after {
 
 .expand__note__button > svg {
 	width: 1.2rem;
-	height: 1.2rem;
+	height: 2rem;
 	transition: 0.3s ease-in-out;
 }
 
@@ -483,7 +490,7 @@ html.dark-theme button.note__text__deletebtn > svg {
 	gap: 0.5rem;
 	height: 15rem;
 	padding: 0 1rem;
-	overflow-y: scroll;
+	overflow-y: auto;
 	white-space: nowrap;
 }
 .modal__listitems > li {
@@ -493,6 +500,7 @@ html.dark-theme button.note__text__deletebtn > svg {
 	font-family: var(--font-regular);
 
 	button {
+		cursor: pointer;
 		border: none;
 		background-color: transparent;
 	}

@@ -30,6 +30,8 @@ const NoteContainer = () => {
 		e: React.MouseEvent<HTMLButtonElement>,
 		noteTitle: string
 	) => {
+		const temp = e.currentTarget.previousSibling as HTMLInputElement
+		temp.value = ""
 		const parentElement = e.currentTarget.closest("div")
 		parentElement?.classList.remove("show")
 		const foundNote = notes.filter(

@@ -148,7 +148,7 @@ const useNotesStore = create<NotesStore>((set, get) => ({
 		return currentNote[0].content.filter((item) => item.isChecked === true)
 			.length
 	},
-	deleteNoteItem: (noteId, itemId) =>
+	deleteNoteItem: (noteId, itemId) => {
 		set((state) => {
 			const noteIndex = state.notes.findIndex(
 				(note) => note.id === noteId
@@ -165,7 +165,17 @@ const useNotesStore = create<NotesStore>((set, get) => ({
 
 			localStorage.setItem("todoapp-notes", JSON.stringify(updatedNotes))
 			return { notes: updatedNotes }
-		}),
+		})
+		// check if there are entries left in the note
+		// if not then delete the note
+		const noteIndex = get().notes.findIndex((note) => note.id === noteId)
+		const note = get().notes[noteIndex]
+		const entriesCount = note.content.length
+
+		if (entriesCount === 0) {
+			get().deleteNote(noteId)
+		}
+	},
 	deleteNote: (id) =>
 		set((state) => {
 			localStorage.setItem(

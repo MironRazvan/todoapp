@@ -194,13 +194,18 @@ const Note: React.FC<NoteProps> = ({ note, isExpanded, onToggleExpand }) => {
 			<button className="expand__note__button" onClick={onToggleExpand}>
 				<ChevronsDown />
 			</button>
-			{isExpanded && (
-				<div className="note__items__counter">
-					<p>
-						{getCheckedNotesCount(note.id)}/{getNotesCount(note.id)}
-					</p>
-				</div>
-			)}
+			<div
+				className="note__items__counter"
+				style={
+					note.title?.text === ""
+						? { top: "0.5rem" }
+						: { top: "1.3rem" }
+				}
+			>
+				<p>
+					{getCheckedNotesCount(note.id)}/{getNotesCount(note.id)}
+				</p>
+			</div>
 		</div>
 	)
 }

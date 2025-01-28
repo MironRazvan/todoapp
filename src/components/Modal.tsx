@@ -69,7 +69,7 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
 					<input
 						type="text"
 						className="input__title"
-						placeholder="SHOPPING LIST"
+						placeholder="ex: SHOPPING LIST"
 						onChange={(e) =>
 							setNewNote((prevNote) => ({
 								...prevNote,
@@ -82,7 +82,7 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
 							type="text"
 							className="input__listitem"
 							id="input__listitem"
-							placeholder="CARROTS"
+							placeholder="ex: CARROTS"
 							onChange={(e) => setListItem(e.target.value)}
 							onKeyDown={(e) => {
 								if (e.key === "Enter") {
