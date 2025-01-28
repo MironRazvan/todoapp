@@ -106,7 +106,9 @@ const useNotesStore = create<NotesStore>((set, get) => ({
 			const updatedNote = {
 				...note,
 				content: note.content.map((item) =>
-					item.id === itemId ? { ...item, text: newValue } : item
+					item.id === itemId
+						? { ...item, text: newValue.trimEnd() }
+						: item
 				),
 			}
 			const updatedNotes = state.notes

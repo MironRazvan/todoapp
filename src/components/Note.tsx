@@ -89,21 +89,21 @@ const Note: React.FC<NoteProps> = ({ note, isExpanded, onToggleExpand }) => {
 								type="text"
 								className="input__listitem"
 								defaultValue={item.text}
-								onBlur={(e) =>
+								onBlur={(e) => {
+									setEditingId("")
 									updateNoteItem(
 										note.id,
 										item.id,
-										e.target.value.trimEnd()
+										e.target.value
 									)
-								}
+								}}
 								onKeyDown={(e) => {
 									if (e.key === "Enter") {
+										setEditingId("")
 										updateNoteItem(
 											note.id,
 											item.id,
-											(
-												e.target as HTMLInputElement
-											).value.trimEnd()
+											(e.target as HTMLInputElement).value
 										)
 									}
 								}}
