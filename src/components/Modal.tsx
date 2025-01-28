@@ -27,7 +27,11 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
 				...prevNote,
 				content: [
 					...prevNote.content,
-					{ text: listItem, id: nanoid(), isChecked: false },
+					{
+						text: listItem.trimEnd(),
+						id: nanoid(),
+						isChecked: false,
+					},
 				],
 			}))
 			targetElement.value = ""

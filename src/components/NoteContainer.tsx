@@ -37,7 +37,7 @@ const NoteContainer = () => {
 			const matchingNotes = notes.filter(
 				(note) =>
 					note.title?.toLocaleLowerCase() ===
-					foundNote[0].title.toLocaleLowerCase()
+					foundNote[0]?.title?.toLocaleLowerCase()
 			)
 			setExpandedNotes(matchingNotes.map((note) => note.id))
 		}

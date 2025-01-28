@@ -36,7 +36,7 @@ const Note: React.FC<NoteProps> = ({ note, isExpanded, onToggleExpand }) => {
 		if (newEntry !== null) {
 			addNoteEntry(note.id, {
 				id: nanoid(),
-				text: newEntry,
+				text: newEntry.trimEnd(),
 				isChecked: false,
 			})
 			inputElement.value = ""
