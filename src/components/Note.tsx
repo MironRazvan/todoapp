@@ -93,7 +93,7 @@ const Note: React.FC<NoteProps> = ({ note, isExpanded, onToggleExpand }) => {
 									updateNoteItem(
 										note.id,
 										item.id,
-										e.target.value
+										e.target.value.trimEnd()
 									)
 								}
 								onKeyDown={(e) => {
@@ -101,7 +101,9 @@ const Note: React.FC<NoteProps> = ({ note, isExpanded, onToggleExpand }) => {
 										updateNoteItem(
 											note.id,
 											item.id,
-											(e.target as HTMLInputElement).value
+											(
+												e.target as HTMLInputElement
+											).value.trimEnd()
 										)
 									}
 								}}
