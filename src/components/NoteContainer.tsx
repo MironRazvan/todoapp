@@ -26,7 +26,12 @@ const NoteContainer = () => {
 		)
 	}
 
-	const handleSearchNote = (noteTitle: string) => {
+	const handleSearchNote = (
+		e: React.MouseEvent<HTMLButtonElement>,
+		noteTitle: string
+	) => {
+		const parentElement = e.currentTarget.closest("div")
+		parentElement?.classList.remove("show")
 		const foundNote = notes.filter(
 			(note) =>
 				note.title?.toLocaleLowerCase() ===
@@ -68,7 +73,7 @@ const NoteContainer = () => {
 						type="text"
 						onChange={(e) => setSearchValue(e.target.value)}
 					/>
-					<button onClick={() => handleSearchNote(searchValue)}>
+					<button onClick={(e) => handleSearchNote(e, searchValue)}>
 						<Search />
 					</button>
 				</div>

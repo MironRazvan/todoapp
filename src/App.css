@@ -117,22 +117,44 @@ header.header__container {
 	grid-template-columns: 1fr auto;
 	align-items: center;
 	gap: 1rem;
-	/* z-index: -5; */
+	position: absolute;
+	top: 1.2rem;
+	right: 5rem;
 }
 
 .header__search__form > div {
-	z-index: 10;
 	width: 0;
 	overflow: hidden;
 	white-space: nowrap;
 	pointer-events: none;
+	display: flex;
 
 	transition: width 0.3s ease-in-out;
+
+	input {
+		border: none;
+		border-top-left-radius: 0.5rem;
+		border-bottom-left-radius: 0.5rem;
+		padding: 0 0.5rem;
+	}
+
+	button {
+		cursor: pointer;
+		border: none;
+		padding: 0 0.5rem;
+		border-top-right-radius: 0.5rem;
+		border-bottom-right-radius: 0.5rem;
+		background-color: rgba(var(--primary-color), 0.5);
+
+		svg {
+			stroke: rgb(var(--text-color-dark));
+		}
+	}
 }
 
 .header__search__form > div.show {
 	width: 15rem;
-	overflow: auto;
+	overflow: hidden;
 	pointer-events: auto;
 }
 
@@ -235,7 +257,10 @@ html.dark-theme .note__container.expanded:after {
 .note__add__entry {
 	display: grid;
 	grid-template-columns: 1fr auto;
+
+	transition: 0.3s ease-in-out;
 }
+
 .note__add__entry > input {
 	border-top-left-radius: 0.5rem;
 	border-bottom-left-radius: 0.5rem;
@@ -439,6 +464,10 @@ html.dark-theme button.note__text__deletebtn > svg {
 }
 
 .modal__button__container {
+	position: absolute;
+	bottom: 1rem;
+	left: 0;
+	width: 100%;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -450,11 +479,16 @@ html.dark-theme button.note__text__deletebtn > svg {
 	display: flex;
 	flex-direction: column;
 	gap: 0.5rem;
+	height: 15rem;
+	padding: 0 1rem;
+	overflow-y: scroll;
+	white-space: nowrap;
 }
 .modal__listitems > li {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	font-family: var(--font-regular);
 
 	button {
 		border: none;
@@ -475,8 +509,7 @@ html.dark-theme button.note__text__deletebtn > svg {
 	background-color: rgb(var(--accent-color));
 	color: rgb(var(--text-color));
 }
-
-.close__modal__button {
+.modal__button__container .close__modal__button {
 	cursor: pointer;
 	background-color: transparent;
 	border: 0.3rem solid red;
@@ -521,6 +554,43 @@ html.dark-theme button.note__text__deletebtn > svg {
 		overflow: hidden;
 	}
 
+	.header__search__form {
+		grid-template-columns: 6rem;
+		grid-template-rows: 1fr auto;
+		bottom: 1rem;
+		top: auto;
+		right: 1rem;
+	}
+
+	.header__search__form > div {
+		flex-direction: column;
+	}
+
+	.header__search__form > div > input {
+		border-radius: 0.5rem;
+		padding: 0.5rem 0.2rem;
+		font-family: var(--font-regular);
+	}
+
+	.header__search__form > div > button {
+		border-radius: 0.5rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.2rem;
+		background-color: rgba(var(--primary-color), 0.5);
+
+		svg {
+			stroke: rgb(var(--text-color-dark));
+		}
+	}
+
+	.header__search__form > div.show {
+		width: 7rem;
+		overflow: hidden;
+		pointer-events: auto;
+	}
+
 	.page__container {
 		justify-content: flex-start;
 	}
@@ -556,5 +626,9 @@ html.dark-theme button.note__text__deletebtn > svg {
 		bottom: 0;
 		right: 0;
 		transform: translate(-5%, -25%);
+	}
+
+	.modal__listitems {
+		height: 10rem;
 	}
 }

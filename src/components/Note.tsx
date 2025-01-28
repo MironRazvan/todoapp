@@ -2,7 +2,7 @@ import { toCamelCase } from "../utils/utils.tsx"
 import { ChevronsDown, Delete, Plus } from "lucide-react"
 import useNotesStore, { TNote } from "../utils/notesStore.tsx"
 import { nanoid } from "nanoid"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 interface NoteProps {
 	note: TNote
@@ -24,6 +24,15 @@ const Note: React.FC<NoteProps> = ({ note, isExpanded, onToggleExpand }) => {
 		getCheckedNotesCount,
 		updateNoteItem,
 	} = useNotesStore()
+
+	useEffect(() => {
+		const currentElement = document.getElementsByClassName("expanded")
+		if (currentElement.length > 0)
+			currentElement[0].scrollIntoView({
+				behavior: "smooth",
+				block: "nearest",
+			})
+	}, [isExpanded])
 
 	const isNoteCompleted =
 		getCheckedNotesCount(note.id) === getNotesCount(note.id)

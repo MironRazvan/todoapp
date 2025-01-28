@@ -2,6 +2,7 @@ import { useState } from "react"
 import useNotesStore, { TNote } from "../utils/notesStore"
 import { nanoid } from "nanoid"
 import { Delete, NotebookPen, X } from "lucide-react"
+import { toCamelCase } from "../utils/utils"
 
 type ModalProps = {
 	onClose: () => void
@@ -26,12 +27,12 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
 			setNewNote((prevNote) => ({
 				...prevNote,
 				content: [
-					...prevNote.content,
 					{
 						text: listItem.trimEnd(),
 						id: nanoid(),
 						isChecked: false,
 					},
+					...prevNote.content,
 				],
 			}))
 			targetElement.value = ""
@@ -99,7 +100,7 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
 					<ul className="modal__listitems">
 						{newNote.content.map((item) => (
 							<li key={item.id}>
-								<p>{item.text}</p>
+								<p>{toCamelCase(item.text)}</p>
 								<button
 									className="delete__entry"
 									onClick={() => handleDeleteEntry(item.id)}
