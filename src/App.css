@@ -239,7 +239,9 @@ html.dark-theme .note__container.expanded:after {
 	font-weight: bold;
 	padding: 1rem;
 	letter-spacing: 0.2rem;
-	justify-self: center;
+	/* justify-self: center; */
+	width: 100%;
+	text-align: center;
 }
 
 .note__content {

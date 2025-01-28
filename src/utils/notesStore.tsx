@@ -8,7 +8,10 @@ type Entry = {
 
 export type TNote = {
 	id: string
-	title?: string
+	title?: {
+		id: string
+		text: string
+	}
 	content: Entry[]
 }
 
@@ -21,6 +24,7 @@ type NotesStore = {
 	getNotesCount: (noteId: string) => number
 	getCheckedNotesCount: (noteId: string) => number
 	updateNoteItem: (noteId: string, itemId: string, newValue: string) => void
+	updateNoteTitle: (noteId: string, newValue: string) => void
 	deleteNoteItem: (noteId: string, itemId: string) => void
 	deleteNote: (id: string) => void
 	findNote: (text: string) => TNote
@@ -34,9 +38,9 @@ const useNotesStore = create<NotesStore>((set, get) => ({
 		set((state) => {
 			localStorage.setItem(
 				"todoapp-notes",
-				JSON.stringify([...state.notes, note])
+				JSON.stringify([note, ...state.notes])
 			)
-			return { notes: [...state.notes, note] }
+			return { notes: [note, ...state.notes] }
 		}),
 	addNoteEntry: (noteId, value) =>
 		set((state) => {
@@ -118,6 +122,23 @@ const useNotesStore = create<NotesStore>((set, get) => ({
 			localStorage.setItem("todoapp-notes", JSON.stringify(updatedNotes))
 			return { notes: updatedNotes }
 		}),
+	updateNoteTitle: (noteId, newValue) =>
+		set((state) => {
+			const noteIndex = state.notes.findIndex(
+				(note) => note.id === noteId
+			)
+			const note = state.notes[noteIndex]
+			const updatedNote = {
+				...note,
+				title: { id: note.title?.id || "", text: newValue },
+			}
+			const updatedNotes = state.notes
+				.slice(0, noteIndex)
+				.concat(updatedNote)
+				.concat(state.notes.slice(noteIndex + 1))
+			localStorage.setItem("todoapp-notes", JSON.stringify(updatedNotes))
+			return { notes: updatedNotes }
+		}),
 	getNotesCount: (noteId) => {
 		const currentNote = get().notes.filter((item) => item.id === noteId)
 		return currentNote[0].content.length
@@ -156,7 +177,9 @@ const useNotesStore = create<NotesStore>((set, get) => ({
 			}
 		}),
 	findNote: (textValue) => {
-		const note = get().notes.filter((item) => item.title === textValue)
+		const note = get().notes.filter(
+			(item) => item.title?.text === textValue
+		)
 		return note[0]
 	},
 }))

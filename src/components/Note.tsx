@@ -23,6 +23,7 @@ const Note: React.FC<NoteProps> = ({ note, isExpanded, onToggleExpand }) => {
 		getNotesCount,
 		getCheckedNotesCount,
 		updateNoteItem,
+		updateNoteTitle,
 	} = useNotesStore()
 
 	useEffect(() => {
@@ -55,16 +56,39 @@ const Note: React.FC<NoteProps> = ({ note, isExpanded, onToggleExpand }) => {
 	return (
 		<div className={`note__container ${isExpanded ? "expanded" : ""}`}>
 			<div className="note__header">
-				<h3
-					className="note__title"
-					style={
-						isNoteCompleted && !isExpanded
-							? { textDecoration: "line-through" }
-							: undefined
-					}
-				>
-					{note.title && note.title}
-				</h3>
+				{editingId === note.title?.id && isExpanded ? (
+					<input
+						type="text"
+						className="input__listitem"
+						defaultValue={note.title?.text}
+						onBlur={(e) => {
+							setEditingId("")
+							updateNoteTitle(note.id, e.target.value)
+						}}
+						onKeyDown={(e) => {
+							if (e.key === "Enter") {
+								setEditingId("")
+								updateNoteTitle(
+									note.id,
+									(e.target as HTMLInputElement).value
+								)
+							}
+						}}
+						autoFocus
+					/>
+				) : (
+					<h3
+						className="note__title"
+						style={
+							isNoteCompleted && !isExpanded
+								? { textDecoration: "line-through" }
+								: undefined
+						}
+						onClick={() => setEditingId(note.title?.id ?? null)}
+					>
+						{note.title?.text}
+					</h3>
+				)}
 			</div>
 			<ul
 				className="note__content"

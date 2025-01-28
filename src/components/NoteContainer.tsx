@@ -34,15 +34,15 @@ const NoteContainer = () => {
 		parentElement?.classList.remove("show")
 		const foundNote = notes.filter(
 			(note) =>
-				note.title?.toLocaleLowerCase() ===
+				note.title?.text.toLocaleLowerCase() ===
 				noteTitle.toLocaleLowerCase()
 		)
 
 		if (foundNote.length > 0) {
 			const matchingNotes = notes.filter(
 				(note) =>
-					note.title?.toLocaleLowerCase() ===
-					foundNote[0]?.title?.toLocaleLowerCase()
+					note.title?.text.toLocaleLowerCase() ===
+					foundNote[0]?.title?.text.toLocaleLowerCase()
 			)
 			setExpandedNotes(matchingNotes.map((note) => note.id))
 		}

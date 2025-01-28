@@ -12,7 +12,7 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
 	const { addNote } = useNotesStore()
 	const [newNote, setNewNote] = useState<TNote>({
 		id: "",
-		title: "",
+		title: { id: "", text: "" },
 		content: [],
 	})
 
@@ -73,7 +73,7 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
 						onChange={(e) =>
 							setNewNote((prevNote) => ({
 								...prevNote,
-								title: e.target.value,
+								title: { id: nanoid(), text: e.target.value },
 							}))
 						}
 					/>
